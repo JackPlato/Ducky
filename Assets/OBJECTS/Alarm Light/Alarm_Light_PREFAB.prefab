@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 3638190504281650531}
   - component: {fileID: 5703373812681609045}
   - component: {fileID: 2025209332893545388}
+  - component: {fileID: 8292403300094735937}
   m_Layer: 0
-  m_Name: Alarm_Light_PREFAB 1
+  m_Name: Alarm_Light_PREFAB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -82,6 +83,21 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &8292403300094735937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298973859816589168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 820df0c8f2ed4c649910ccf54dc4b939, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spin: 0.8
+  lightOne: {fileID: 8345224579814470860}
+  lightTwo: {fileID: 7409437301029044840}
 --- !u!1 &7409437301029044840
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,7 +123,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7409437301029044840}
   m_LocalRotation: {x: 1, y: -0, z: -0, w: -0.0000002682208}
-  m_LocalPosition: {x: 2.1124077e-10, y: 0.0075, z: 0.015}
+  m_LocalPosition: {x: 0, y: 0.0075, z: 0.015}
   m_LocalScale: {x: 0.028352257, y: 0.028352257, z: 0.028352257}
   m_Children: []
   m_Father: {fileID: 3638190504281650531}
@@ -199,7 +215,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8166737579799909839}
   m_LocalRotation: {x: -0.7071069, y: -0, z: -0, w: 0.70710677}
-  m_LocalPosition: {x: 0.002450001, y: 0.007600004, z: 0.00012999562}
+  m_LocalPosition: {x: 0.002450001, y: 0.00294, z: 0.00013}
   m_LocalScale: {x: 0.028352257, y: 0.028352257, z: 0.028352257}
   m_Children: []
   m_Father: {fileID: 3638190504281650531}
