@@ -32,6 +32,7 @@ public class MenuScript : MonoBehaviour
     void StartGame()
     {
         startAnim.SetTrigger("Start");
+        titleScreen.SetActive(false);
     }
     
     void Credits()
