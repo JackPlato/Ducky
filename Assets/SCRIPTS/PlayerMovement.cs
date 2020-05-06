@@ -34,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
         {
             cam.enabled = true;
             MoveUpdate();
+
         }
         else
         {
@@ -46,32 +47,41 @@ public class PlayerMovement : MonoBehaviour
     }
     void MoveUpdate()
     {
-        charCon.Move(velocityFwd * transform.forward * Time.deltaTime);
-        if (leftPress && !rightPress)
+        if (hitPoint > 0)
         {
-            charCon.Move(velocityStrafe * (transform.right * -1) * Time.deltaTime);
-            Vector3 newRot = new Vector3(0, 0, camTilt);
-            Vector3 newerRot = AngleLerp(cam.transform.eulerAngles, newRot, 6f * Time.deltaTime);
-            cam.transform.eulerAngles = newerRot;
-        }
-        else if (rightPress && !leftPress)
-        {
-            charCon.Move(velocityStrafe * transform.right * Time.deltaTime);
-            Vector3 newRot = new Vector3(0, 0, -camTilt);
-            Vector3 newerRot = AngleLerp(cam.transform.eulerAngles, newRot, 6f * Time.deltaTime);
-            cam.transform.eulerAngles = newerRot;
+            charCon.Move(velocityFwd * transform.forward * Time.deltaTime);
+            if (leftPress && !rightPress)
+            {
+                charCon.Move(velocityStrafe * (transform.right * -1) * Time.deltaTime);
+                Vector3 newRot = new Vector3(0, 0, camTilt);
+                Vector3 newerRot = AngleLerp(cam.transform.eulerAngles, newRot, 6f * Time.deltaTime);
+                cam.transform.eulerAngles = newerRot;
+            }
+            else if (rightPress && !leftPress)
+            {
+                charCon.Move(velocityStrafe * transform.right * Time.deltaTime);
+                Vector3 newRot = new Vector3(0, 0, -camTilt);
+                Vector3 newerRot = AngleLerp(cam.transform.eulerAngles, newRot, 6f * Time.deltaTime);
+                cam.transform.eulerAngles = newerRot;
+            }
+            else
+            {
+                Vector3 newRot = AngleLerp(cam.transform.eulerAngles, Vector3.zero, 10f * Time.deltaTime);
+                cam.transform.eulerAngles = newRot;
+            }
         }
         else
         {
-            Vector3 newRot = AngleLerp(cam.transform.eulerAngles, Vector3.zero, 10f * Time.deltaTime);
-            cam.transform.eulerAngles = newRot;
+            Vector3 deathRot = AngleLerp(cam.transform.eulerAngles, new Vector3(0, 0, -90f), 6f * Time.deltaTime);
+            cam.transform.eulerAngles = deathRot;
         }
+
 
         //gravity and jumping!
         if (charCon.isGrounded)
         {
             vSpeed = -1;
-            if (Input.GetKeyDown(KeyCode.Space) || jumping)
+            if ((Input.GetKeyDown(KeyCode.Space) || jumping) && (hitPoint > 0))
             {
                 vSpeed = jump;
                 Debug.Log("whee!");
@@ -79,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("grounded");
             jumping = false;
         }
-        else
+        else if (hitPoint > 0)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
