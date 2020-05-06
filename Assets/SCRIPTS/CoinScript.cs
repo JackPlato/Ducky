@@ -7,7 +7,7 @@ public class CoinScript : MonoBehaviour
     public int value;
     float spin = 0.5f;
 
-    void Update()
+    void FixedUpdate()
     {
         transform.Rotate(0, 0, spin);
     }
@@ -16,7 +16,7 @@ public class CoinScript : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            //add value to player score
+            other.GetComponent<PlayerMovement>().GetCoin(value);
             Destroy(gameObject);
         }
     }

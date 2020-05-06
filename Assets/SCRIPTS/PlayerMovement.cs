@@ -18,74 +18,86 @@ public class PlayerMovement : MonoBehaviour
     public bool go = false;
     public int health = 3;
     private int hitPoint = 3;
+    private int score = 0;
+    public GameOverScreenScript gameOver;
     // Start is called before the first frame update
     void Start()
     {
         charCon = GetComponent<CharacterController>();
         hitPoint = health;
+        gameOver.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        gameOver.finalScore = score;
         leftPress = Input.GetKey(KeyCode.A);
         rightPress = Input.GetKey(KeyCode.D);
         if (go)
         {
             cam.enabled = true;
             MoveUpdate();
+
         }
         else
         {
             cam.enabled = false;
         }
     }
-    void FixedUpdate()
-    {
-        
-    }
+
     void MoveUpdate()
     {
-        charCon.Move(velocityFwd * transform.forward * Time.deltaTime);
-        if (leftPress && !rightPress)
+        if (hitPoint > 0)
         {
-            charCon.Move(velocityStrafe * (transform.right * -1) * Time.deltaTime);
-            Vector3 newRot = new Vector3(0, 0, camTilt);
-            Vector3 newerRot = AngleLerp(cam.transform.eulerAngles, newRot, 6f * Time.deltaTime);
-            cam.transform.eulerAngles = newerRot;
-        }
-        else if (rightPress && !leftPress)
-        {
-            charCon.Move(velocityStrafe * transform.right * Time.deltaTime);
-            Vector3 newRot = new Vector3(0, 0, -camTilt);
-            Vector3 newerRot = AngleLerp(cam.transform.eulerAngles, newRot, 6f * Time.deltaTime);
-            cam.transform.eulerAngles = newerRot;
+            gameOver.gameObject.SetActive(false);
+            charCon.Move(velocityFwd * transform.forward * Time.deltaTime);
+            if (leftPress && !rightPress)
+            {
+                charCon.Move(velocityStrafe * (transform.right * -1) * Time.deltaTime);
+                Vector3 newRot = new Vector3(0, 0, camTilt);
+                Vector3 newerRot = AngleLerp(cam.transform.eulerAngles, newRot, 6f * Time.deltaTime);
+                cam.transform.eulerAngles = newerRot;
+            }
+            else if (rightPress && !leftPress)
+            {
+                charCon.Move(velocityStrafe * transform.right * Time.deltaTime);
+                Vector3 newRot = new Vector3(0, 0, -camTilt);
+                Vector3 newerRot = AngleLerp(cam.transform.eulerAngles, newRot, 6f * Time.deltaTime);
+                cam.transform.eulerAngles = newerRot;
+            }
+            else
+            {
+                Vector3 newRot = AngleLerp(cam.transform.eulerAngles, Vector3.zero, 10f * Time.deltaTime);
+                cam.transform.eulerAngles = newRot;
+            }
         }
         else
         {
-            Vector3 newRot = AngleLerp(cam.transform.eulerAngles, Vector3.zero, 10f * Time.deltaTime);
-            cam.transform.eulerAngles = newRot;
+            gameOver.gameObject.SetActive(true);
+            Vector3 deathRot = AngleLerp(cam.transform.eulerAngles, new Vector3(-90f, 0, 0), 6f * Time.deltaTime);
+            cam.transform.eulerAngles = deathRot;
         }
+
 
         //gravity and jumping!
         if (charCon.isGrounded)
         {
-            vSpeed = -1;
-            if (Input.GetKeyDown(KeyCode.Space) || jumping)
+            vSpeed = -0.6f;
+            if ((Input.GetButtonDown("Jump") || jumping) && (hitPoint > 0))
             {
                 vSpeed = jump;
-                Debug.Log("whee!");
+                Debug.Log("whee!" + vSpeed);
             }
-            Debug.Log("grounded");
-            jumping = false;
+            //Debug.Log("grounded");
         }
-        else
+        else if (hitPoint > 0)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetButtonDown("Jump"))
             {
                 jumping = true;
             }
-            if (Input.GetKeyUp(KeyCode.Space) || !Input.GetKey(KeyCode.Space))
+            if (Input.GetButtonUp("Jump") || !Input.GetButton("Jump"))
             {
                 jumping = false;
             }
@@ -103,6 +115,15 @@ public class PlayerMovement : MonoBehaviour
     public void Hurt()
     {
         hitPoint--;
+    }
+    public void Pitfall()
+    {
+        hitPoint = 0;
+    }
+
+    public void GetCoin(int s)
+    {
+        score += s;
     }
 
     //thanks, guy from answers.unity.com!
