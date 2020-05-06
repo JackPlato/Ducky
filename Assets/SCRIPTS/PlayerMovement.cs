@@ -20,6 +20,8 @@ public class PlayerMovement : MonoBehaviour
     private int hitPoint = 3;
     private int score = 0;
     public GameOverScreenScript gameOver;
+    public VictoryScript victory;
+    public HPBar hpBar;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +34,9 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         gameOver.finalScore = score;
+        victory.finalScore = score;
+        hpBar.max = health;
+        hpBar.current = hitPoint;
         leftPress = Input.GetKey(KeyCode.A);
         rightPress = Input.GetKey(KeyCode.D);
         if (go)
