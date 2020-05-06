@@ -70,12 +70,12 @@ public class PlayerMovement : MonoBehaviour
         //gravity and jumping!
         if (charCon.isGrounded)
         {
+            vSpeed = -1;
             if (Input.GetKeyDown(KeyCode.Space) || jumping)
             {
                 vSpeed = jump;
                 Debug.Log("whee!");
             }
-            //vSpeed = -1;
             Debug.Log("grounded");
             jumping = false;
         }
