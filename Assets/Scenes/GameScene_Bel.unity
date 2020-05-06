@@ -1694,7 +1694,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &603431337
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2235,7 +2235,7 @@ PrefabInstance:
         type: 3}
       propertyPath: gameOver
       value: 
-      objectReference: {fileID: 1601052980}
+      objectReference: {fileID: 1601052982}
     - target: {fileID: 556400240964144448, guid: 261f6f69ff9cd0144974f9420f489c54,
         type: 3}
       propertyPath: m_ClearFlags
@@ -3883,7 +3883,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1498757468}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
