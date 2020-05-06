@@ -7,6 +7,7 @@ public class MenuScript : MonoBehaviour
 {
     public Button startButton, creditsButton, quitButton;
     public GameObject titleScreen, creditsScreen, gameOverScreen;
+    public Animator startAnim;
     private bool credits = false;
 
     void Start()
@@ -30,7 +31,7 @@ public class MenuScript : MonoBehaviour
 
     void StartGame()
     {
-
+        startAnim.SetTrigger("Start");
     }
     
     void Credits()

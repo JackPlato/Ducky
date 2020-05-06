@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private bool jumping = false; //allows us to queue jumps before landing
     bool leftPress;
     bool rightPress;
+    public bool go = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +27,15 @@ public class PlayerMovement : MonoBehaviour
     {
         leftPress = Input.GetKey(KeyCode.A);
         rightPress = Input.GetKey(KeyCode.D);
-        MoveUpdate();
+        if (go)
+        {
+            cam.enabled = true;
+            MoveUpdate();
+        }
+        else
+        {
+            cam.enabled = false;
+        }
     }
     void FixedUpdate()
     {
@@ -82,6 +91,11 @@ public class PlayerMovement : MonoBehaviour
         charCon.Move(vSpeed * Vector3.up * Time.deltaTime);
 
         
+    }
+
+    public void Activate()
+    {
+        go = true;
     }
 
     //thanks, guy from answers.unity.com!
