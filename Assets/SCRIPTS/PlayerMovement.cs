@@ -48,20 +48,20 @@ public class PlayerMovement : MonoBehaviour
 
     void MoveUpdate()
     {
+        float strafe = 0f;
         if (hitPoint > 0)
         {
             gameOver.gameObject.SetActive(false);
-            charCon.Move(velocityFwd * transform.forward * Time.deltaTime);
             if (leftPress && !rightPress)
             {
-                charCon.Move(velocityStrafe * (transform.right * -1) * Time.deltaTime);
+                strafe = velocityStrafe * -1;
                 Vector3 newRot = new Vector3(0, 0, camTilt);
                 Vector3 newerRot = AngleLerp(cam.transform.eulerAngles, newRot, 6f * Time.deltaTime);
                 cam.transform.eulerAngles = newerRot;
             }
             else if (rightPress && !leftPress)
             {
-                charCon.Move(velocityStrafe * transform.right * Time.deltaTime);
+                strafe = velocityStrafe;
                 Vector3 newRot = new Vector3(0, 0, -camTilt);
                 Vector3 newerRot = AngleLerp(cam.transform.eulerAngles, newRot, 6f * Time.deltaTime);
                 cam.transform.eulerAngles = newerRot;
@@ -74,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            strafe = 0f;
             gameOver.gameObject.SetActive(true);
             Vector3 deathRot = AngleLerp(cam.transform.eulerAngles, new Vector3(-90f, 0, 0), 6f * Time.deltaTime);
             cam.transform.eulerAngles = deathRot;
@@ -83,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
         //gravity and jumping!
         if (charCon.isGrounded)
         {
-            vSpeed = -0.6f;
+            vSpeed = 0f;
             if ((Input.GetButtonDown("Jump") || jumping) && (hitPoint > 0))
             {
                 vSpeed = jump;
@@ -103,7 +104,8 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         vSpeed -= gravity * Time.deltaTime;
-        charCon.Move(vSpeed * Vector3.up * Time.deltaTime);
+        Vector3 finalMovement = new Vector3(strafe, vSpeed, (hitPoint > 0) ? velocityFwd : 0f);
+        charCon.Move(finalMovement * Time.deltaTime);
 
         
     }
