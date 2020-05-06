@@ -8,7 +8,7 @@ public class PitfallScript : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            //player dies, game over screen activates
+            other.GetComponent<PlayerMovement>().Hurt();
         }
     }
 }

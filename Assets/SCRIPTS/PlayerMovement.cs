@@ -16,10 +16,13 @@ public class PlayerMovement : MonoBehaviour
     bool leftPress;
     bool rightPress;
     public bool go = false;
+    public int health = 3;
+    private int hitPoint = 3;
     // Start is called before the first frame update
     void Start()
     {
         charCon = GetComponent<CharacterController>();
+        hitPoint = health;
     }
 
     // Update is called once per frame
@@ -96,6 +99,10 @@ public class PlayerMovement : MonoBehaviour
     public void Activate()
     {
         go = true;
+    }
+    public void Hurt()
+    {
+        hitPoint--;
     }
 
     //thanks, guy from answers.unity.com!

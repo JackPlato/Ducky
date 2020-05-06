@@ -13,8 +13,7 @@ public class HazardScript : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            //damage player
-            //destroy collider on this object
+            other.GetComponent<PlayerMovement>().Hurt();
         }
     }
 }
