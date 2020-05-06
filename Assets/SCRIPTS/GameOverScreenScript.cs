@@ -34,6 +34,5 @@ public class GameOverScreenScript : MonoBehaviour
         scoreText.color = new Color(scoreText.color.r, scoreText.color.g, scoreText.color.b, 255);
         yield return new WaitForSeconds(1);
         continueText.color = new Color(continueText.color.r, continueText.color.g, continueText.color.b, 255);
-
     }
 }
