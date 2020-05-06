@@ -8,7 +8,7 @@ public class PitfallScript : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            other.GetComponent<PlayerMovement>().Hurt();
+            other.GetComponent<PlayerMovement>().Pitfall();
         }
     }
 }

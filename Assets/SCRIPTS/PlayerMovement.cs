@@ -18,18 +18,20 @@ public class PlayerMovement : MonoBehaviour
     public bool go = false;
     public int health = 3;
     private int hitPoint = 3;
-    public GameObject gameOver;
+    private int score = 0;
+    public GameOverScreenScript gameOver;
     // Start is called before the first frame update
     void Start()
     {
         charCon = GetComponent<CharacterController>();
         hitPoint = health;
-        gameOver.SetActive(false);
+        gameOver.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        gameOver.finalScore = score;
         leftPress = Input.GetKey(KeyCode.A);
         rightPress = Input.GetKey(KeyCode.D);
         if (go)
@@ -43,15 +45,12 @@ public class PlayerMovement : MonoBehaviour
             cam.enabled = false;
         }
     }
-    void FixedUpdate()
-    {
-        
-    }
+
     void MoveUpdate()
     {
         if (hitPoint > 0)
         {
-            gameOver.SetActive(false);
+            gameOver.gameObject.SetActive(false);
             charCon.Move(velocityFwd * transform.forward * Time.deltaTime);
             if (leftPress && !rightPress)
             {
@@ -75,8 +74,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            gameOver.SetActive(true);
-            Vector3 deathRot = AngleLerp(cam.transform.eulerAngles, new Vector3(0, 0, -90f), 6f * Time.deltaTime);
+            gameOver.gameObject.SetActive(true);
+            Vector3 deathRot = AngleLerp(cam.transform.eulerAngles, new Vector3(-90f, 0, 0), 6f * Time.deltaTime);
             cam.transform.eulerAngles = deathRot;
         }
 
@@ -84,22 +83,21 @@ public class PlayerMovement : MonoBehaviour
         //gravity and jumping!
         if (charCon.isGrounded)
         {
-            vSpeed = -1;
-            if ((Input.GetKeyDown(KeyCode.Space) || jumping) && (hitPoint > 0))
+            vSpeed = -0.6f;
+            if ((Input.GetButtonDown("Jump") || jumping) && (hitPoint > 0))
             {
                 vSpeed = jump;
-                Debug.Log("whee!");
+                Debug.Log("whee!" + vSpeed);
             }
-            Debug.Log("grounded");
-            jumping = false;
+            //Debug.Log("grounded");
         }
         else if (hitPoint > 0)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetButtonDown("Jump"))
             {
                 jumping = true;
             }
-            if (Input.GetKeyUp(KeyCode.Space) || !Input.GetKey(KeyCode.Space))
+            if (Input.GetButtonUp("Jump") || !Input.GetButton("Jump"))
             {
                 jumping = false;
             }
@@ -117,6 +115,15 @@ public class PlayerMovement : MonoBehaviour
     public void Hurt()
     {
         hitPoint--;
+    }
+    public void Pitfall()
+    {
+        hitPoint = 0;
+    }
+
+    public void GetCoin(int s)
+    {
+        score += s;
     }
 
     //thanks, guy from answers.unity.com!
