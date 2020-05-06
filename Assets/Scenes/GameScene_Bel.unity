@@ -2311,6 +2311,16 @@ PrefabInstance:
       propertyPath: gameOver
       value: 
       objectReference: {fileID: 1601052982}
+    - target: {fileID: 556400240402069055, guid: 261f6f69ff9cd0144974f9420f489c54,
+        type: 3}
+      propertyPath: victory
+      value: 
+      objectReference: {fileID: 1498757469}
+    - target: {fileID: 556400240402069055, guid: 261f6f69ff9cd0144974f9420f489c54,
+        type: 3}
+      propertyPath: hpBar
+      value: 
+      objectReference: {fileID: 1441337158}
     - target: {fileID: 556400240964144448, guid: 261f6f69ff9cd0144974f9420f489c54,
         type: 3}
       propertyPath: m_ClearFlags
