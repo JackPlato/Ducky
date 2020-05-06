@@ -16,6 +16,6 @@ public class HPBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rect.sizeDelta = new Vector2(current / max * rect.parent.GetComponent<RectTransform>().sizeDelta.x, rect.parent.GetComponent<RectTransform>().sizeDelta.y);
+        rect.sizeDelta = new Vector2((float)((float)current / (float)max) * (float)rect.parent.GetComponent<RectTransform>().sizeDelta.x, rect.parent.GetComponent<RectTransform>().sizeDelta.y);
     }
 }
