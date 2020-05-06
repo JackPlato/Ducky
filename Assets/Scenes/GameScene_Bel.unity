@@ -2031,6 +2031,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 556400240402069055, guid: 261f6f69ff9cd0144974f9420f489c54,
+        type: 3}
+      propertyPath: gameOver
+      value: 
+      objectReference: {fileID: 1601052980}
     - target: {fileID: 556400240964144448, guid: 261f6f69ff9cd0144974f9420f489c54,
         type: 3}
       propertyPath: m_ClearFlags

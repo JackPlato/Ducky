@@ -18,11 +18,13 @@ public class PlayerMovement : MonoBehaviour
     public bool go = false;
     public int health = 3;
     private int hitPoint = 3;
+    public GameObject gameOver;
     // Start is called before the first frame update
     void Start()
     {
         charCon = GetComponent<CharacterController>();
         hitPoint = health;
+        gameOver.SetActive(false);
     }
 
     // Update is called once per frame
@@ -49,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (hitPoint > 0)
         {
+            gameOver.SetActive(false);
             charCon.Move(velocityFwd * transform.forward * Time.deltaTime);
             if (leftPress && !rightPress)
             {
@@ -72,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            gameOver.SetActive(true);
             Vector3 deathRot = AngleLerp(cam.transform.eulerAngles, new Vector3(0, 0, -90f), 6f * Time.deltaTime);
             cam.transform.eulerAngles = deathRot;
         }
