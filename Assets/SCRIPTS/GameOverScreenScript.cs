@@ -21,10 +21,10 @@ public class GameOverScreenScript : MonoBehaviour
 
     void Update()
     {
-        scoreText.text = "But hey, you nabbed" + finalScore + "\nalong the way";
+        scoreText.text = "But hey, you nabbed $" + finalScore + "\nalong the way";
         if (continueText.color.a > 0 && Input.GetButtonDown("Fire1"))
         {
-            SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
+            SceneManager.LoadScene("GameScene_Bel", LoadSceneMode.Single);
         }
     }
 
